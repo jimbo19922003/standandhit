@@ -1,0 +1,731 @@
+Stand and Hit
+Version 1.11.1
+November 15, 2026
+
+Fixed
+
+- Fixed a range check that could keep a WeakAura hidden even when the Hit
+  Button had a matching spell. A range check that doesn't apply now lets
+  the rule's other conditions decide. Spells confirmed out of range are
+  still skipped. Restricted or invalid readings still return unknown.
+- WeakAuras integration is now marked [BETA] in Advanced. Combat readings
+  and the range fix still need testing in game.
+
+Reload and Prepare outside combat, then try your existing WeakAura again.
+You don't need to replace its trigger.
+
+Stand and Hit
+Version 1.11.1-beta.1
+November 15, 2026
+
+Fixed
+
+- WeakAuras readiness no longer returns unknown just because an optional
+  range check has no applicable result. Skip if out of range still skips a
+  rule when the spell is confirmed out of range. Restricted or invalid data
+  still returns unknown, and the rule's other conditions still apply.
+
+Reload and Prepare outside combat, then try the existing WeakAura again.
+This fix still needs confirmation in game.
+
+Stand and Hit
+Version 1.11.0
+November 15, 2026
+
+Everything added or fixed since 1.10.0.
+
+Added
+
+- Skip if immune (bleed) [BETA]. A checkbox for individual bleed rules. Checked bleeds skip Mechanical targets immediately. For other enemies, an Immune result after the first attempt makes all checked bleed rules skip that enemy until combat ends. For example, if Rake returns Immune, Rip gets skipped too. This is experimental and can catch another player's Immune result. Spell-school immunity isn't included yet.
+
+- WeakAuras integration. An optional companion addon that can be enabled separately. WeakAuras can check the four Hit Buttons in your active profile and read the matching spell and rule from your prepared rotation. Advanced has an integration checkbox, an Open WeakAuras button, and copyable triggers with setup directions.
+
+- Function Block Diagrams [BETA]. Enable this in Advanced to view both individual rules and the full rotation as connected blocks. Edit conditions directly inside the blocks, including adding AND, OR, and NOT. Switching views keeps your draft settings; Prepare still applies changes. The diagrams explain the draft rather than showing live combat results.
+
+- Diagram screenshots and image export. Save a screenshot of the visible section, or export the entire rotation through the included browser exporter as one PNG or SVG. Long rotations are included without taking separate screenshots.
+
+- Custom Rules [BETA]. Enable this in Advanced to add Custom Rule under + Action. Enter macro commands such as /targetenemy, with IF, AND, OR, and NOT conditions deciding when they run. The commands run, then normal spell selection continues on the same press.
+
+- Separate example buttons. Advanced now has Custom Target examples, Custom Conditions examples, and Custom Rule examples.
+
+Fixed
+
+- An open rotation explanation now updates when you edit condition types, health thresholds, or stack conditions.
+
+Custom Rule limits
+
+- Use the visible Hit Button, Set cast key, or a controller button. Custom Rules cannot run through the action-bar macro.
+- Each Hit Button can have one enabled Custom Rule containing multiple command lines. Keep it above Auto Attack.
+- Include /stopcasting if running the commands should interrupt your current cast.
+- After a command changes targets, rules checking tracked target auras, stacks, or timers wait until the next press.
+
+Still needs testing
+
+- Bleed immunity skipping, especially with other players attacking.
+- WeakAuras readings during combat and after switching profiles.
+- Editing diagram blocks, screenshots, and complete image downloads.
+- Custom Rules during combat, including targeting and continuing to the next spell on the same press.
+
+Stand and Hit
+Version 1.11.0-beta.6
+November 15, 2026
+
+Added
+
+- Export the entire rotation diagram as one image. Click Export image,
+  copy the text, and paste it into the included diagram-export.html page.
+  Download PNG gives you one image for Discord. SVG keeps the original size.
+- Custom Rules is now an option in Advanced. Add commands such as
+  /targetenemy, with the usual IF, AND, OR, and NOT conditions. The commands
+  run first, then normal spell selection continues on the same press.
+- Advanced has separate Custom Target examples, Custom Conditions examples,
+  and Custom Rule examples buttons.
+
+Custom Rules needs the visible Hit Button, Set cast key, or Controller.
+It cannot run through the action-bar macro. Each Hit Button can have one
+enabled Custom Rule with multiple command lines. Keep it above Auto Attack.
+These limits are explained in Advanced too. The new command path still needs
+testing in game, and the image download needs a browser check.
+
+Stand and Hit
+Version 1.11.0-beta.5
+November 15, 2026
+
+Changed
+
+- Conditions can be edited inside the diagram blocks. Changing a name,
+  number, or condition keeps you in Diagram view.
+- Adding an AND, OR, or NOT condition opens its settings in the diagram.
+- The rotation diagram has a Screenshot button. Open the capture view,
+  scroll to the section you want, and save a screenshot for sharing.
+  WoW saves the visible section in the game's Screenshots folder.
+
+Reload to load the update. Prepare still applies your rule changes.
+
+Stand and Hit
+Version 1.11.0-beta.4
+November 15, 2026
+
+Added
+
+- Function Block Diagrams is now an option in Advanced. It starts off and applies across all five profiles.
+- The rule editor can show conditions as connected blocks. Click a block to edit its settings, or add AND, OR, and NOT conditions from the diagram.
+- Rotation explanation has Text and Function Block Diagram views. The diagram shows priority, disabled rules, channel protection, and Auto Attack continuing on the same press.
+- Diagram views follow the same draft as the normal editor. Prepare applies changes. Copying an explanation still gives you text.
+
+Fixed
+
+- An open rotation explanation now refreshes when typed conditions, health thresholds, or stack conditions change.
+
+Reload, then open /snh > Advanced and check Function Block Diagrams to try it.
+The diagrams describe the draft; they do not display live condition results.
+
+Stand and Hit
+Version 1.11.0-beta.3
+November 15, 2026
+
+Added
+
+- WeakAuras integration now has a checkbox in Advanced. Check it to show Open WeakAuras and Setup and copy trigger.
+- The setup window lets you choose Hit Button 1 through 4, copy its trigger, and follow the directions for adding it to WeakAuras.
+- Turning the checkbox off stops the readiness triggers from matching. It starts off and applies across all five profiles.
+- Advanced explains what to enable if WeakAuras or the companion addon is missing. Open WeakAuras opens its options once you're out of combat.
+
+The optional companion is still included in the ZIP. Enable it in AddOns,
+then check WeakAuras integration in /snh > Advanced. Combat readings still
+need testing in game.
+
+Stand and Hit
+Version 1.11.0-beta.2
+November 15, 2026
+
+Added
+
+- Stand and Hit: WeakAuras, an optional companion included in the download. It appears beneath Stand and Hit in the AddOns list and can be disabled separately.
+- WeakAuras can check whether any of the four Hit Buttons has a qualifying rule and read its spell, rule number, and active profile. The companion follows prepared rotations and the current condition types.
+- Unavailable readings are reported as unknown. The readiness API does not cast spells, advance cast counts, consume procs, or prepare rotations.
+
+The bleed immunity option from beta.1 is included. Both additions still need live testing. Restart WoW after installing the new companion folder, then Prepare outside combat.
+
+Stand and Hit
+Version 1.11.0-beta.1
+November 15, 2026
+
+Added
+
+- Skip if immune (bleed), an optional checkbox for each spell rule. Recognized bleeds skip Mechanical targets without trying to cast first.
+- On other enemies, an Immune response immediately after a bleed cast makes all checked bleed rules skip that enemy for the rest of combat. For example, an immune Rake also prevents Rip from being attempted. Misses, parries, and low-resource errors do not count as immunity.
+- The setting is included when copying a rule or sharing a rotation. Existing rules start with it off.
+
+This is a local beta for testing. The Immune response does not identify the spell or caster, so the timing check can mistake another player's immunity result for yours. Spell-school immunity checks are not included.
+
+Reload, check Skip if immune (bleed) on your Rend rule, then Prepare outside combat.
+
+Stand and Hit
+Version 1.10.0
+November 15, 2026
+
+All changes since the last production release, 1.8.0. This includes the features from the 1.9.0 beta.
+
+Added
+
+- Five rotation profiles, each with four Hit Buttons, for 20 saved rotations. Your existing setup becomes Profile 1. Switch or rename profiles outside combat; the same four buttons and macros use the selected profile.
+- Each profile saves its rotations, cast keys, controller assignments, and Hit Button settings. Advanced options, the minimap button, and rumble settings stay shared.
+- Enemy health and Self health conditions. Choose a percentage from 0 to 100, or combine conditions to set a health range. Enemy health checks a living enemy; Self health works even without a target.
+- Aura stack conditions for tracked player buffs and target debuffs. Choose a count from 0 to 99, such as Sunder Armor below 5 stacks.
+- Aura time remaining conditions. Choose a threshold from 0 to 60 seconds to refresh a buff or debuff near its end. Track the aura in Tracked Bars with its timer visible and Hide when inactive enabled.
+- Revenge, Overpower, Mongoose Bite, and Counterattack now use readiness checks like Riposte. Always and Spell cooldown rules wait until the ability is usable and off cooldown, without needing a proc aura or cooldown tracker. Overpower checks your current target.
+
+Changed
+
+- The first IF lets you choose Always or any supported condition type. To add another condition, choose AND, OR, or NOT, then its type.
+- Combo points, resources, health, aura stacks, aura timers, target casting, totems, hawks, and custom macro conditions can use those operators. OR alternatives still need to pass the rule's AND requirements, NOT exclusions, cooldown, and casting settings.
+- Other casting settings stay visible below the conditions.
+- Copy Rule, rotation import/export, and the textual explanation include the new conditions. Existing rotations keep their settings.
+
+Fixed
+
+- Battle Stance, Defensive Stance, and Berserker Stance conditions now recognize your current stance. Existing Player buff and Tracked aura conditions work without a tracker entry.
+- Supported reactive abilities also recognize their own names in added AND, OR, and NOT conditions. This fixes rules such as Revenge requiring Revenge to be ready. The textual explanation describes these as readiness checks instead of buffs.
+- Riposte's readiness check applies to Always and Spell cooldown rules too.
+- Nightfall and Shadow Trance both recognize the Shadow Trance proc by name. You no longer need to enter its spell ID.
+- Changing druid forms no longer requires Prepare just because a Cast Count spell's action-bar page changes. Counts are preserved, other rules keep working, and the affected rule resumes when its spell button returns. Moving or replacing the spell still requires Prepare.
+- Set cast key includes the Ctrl, Alt, Shift, and combined modifiers used by prepared rules. Modified presses reach the same Hit Button, including when its macro shares that base key. Clearing the key restores normal bindings.
+- Condition text boxes keep focus and cursor position while you type.
+- Fixed the "Health layout changed" error during Prepare and login restoration. Preparing again refreshes the affected settings without requiring a reload.
+- Fixed stale aura timer readings after disabling and re-enabling a rotation.
+
+Reload after updating, then click Prepare outside combat.
+
+Stand and Hit
+Version 1.10.0-beta.2
+November 15, 2026
+
+Fixed
+
+- Battle Stance, Defensive Stance, and Berserker Stance conditions now check your current stance instead of looking for a player buff. Existing Player buff and Tracked aura conditions work without a tracker entry.
+- Revenge, Overpower, and the other supported reactive abilities now recognize their own names in added AND, OR, and NOT conditions. The previous beta handled only the first IF, so an added buff condition could prevent the spell from being selected.
+- The rotation explanation describes those conditions as readiness checks instead of buffs.
+
+Reload, then Prepare outside combat. These fixes still need in-game confirmation.
+
+Stand and Hit
+Version 1.10.0-beta.1
+November 15, 2026
+
+Added
+
+- Five rotation profiles, each with four Hit Buttons. Your current setup becomes Profile 1. Switch or rename profiles outside combat. The same four buttons and macros use the selected profile's rotations.
+- Each profile saves its rotations, cast keys, controller assignments, and Hit Button settings. Advanced options, the minimap button, and rumble settings stay shared.
+- Revenge, Overpower, Mongoose Bite, and Counterattack now use the same readiness checks as Riposte. The rule waits until the ability is usable and its cooldown is ready. Use Always or Spell cooldown; a proc aura isn't required. Overpower uses your current target.
+
+Fixed
+
+- Nightfall and Shadow Trance both select the Shadow Trance proc when entered as an aura name. You no longer need to enter 17941.
+- Riposte's readiness check also applies to Always and Spell cooldown rules.
+
+Local beta: profile switching, Nightfall's name lookup, and the additional reactive abilities still need in-game testing.
+
+Stand and Hit
+Version 1.9.0-beta.10
+November 13, 2026
+
+Fixed
+
+- Set cast key now includes the Ctrl, Alt, and Shift combinations used by the prepared rotation. Holding a rule modifier keeps the press on the same Hit Button. Clearing the cast key restores the normal bindings.
+
+Stand and Hit
+Version 1.9.0-beta.9
+November 13, 2026
+
+Fixed
+
+- Condition text boxes keep focus while typing, including aura names and remaining-time thresholds.
+
+Stand and Hit
+Version 1.9.0-beta.8
+November 13, 2026
+
+Added
+
+- Aura time remaining as an IF, AND, OR, or NOT condition. Choose a player buff or target debuff, then compare its remaining time with whole seconds from 0 to 60.
+- Track the aura in Tracked Bars with its timer visible. Missing auras count as 0 seconds; unreadable timers do not match. Timer conditions carry over when copying and sharing rotations.
+
+Hamstring's displayed countdown and expiration were confirmed in combat. Refreshing through the rotation, other debuffs, and player buffs still need beta testing.
+
+Reload after updating, then Prepare outside combat.
+
+Stand and Hit
+Version 1.9.0-beta.7
+November 13, 2026
+
+Changed
+
+- Renamed Player health to Self health. It still checks your own health, with or without a target selected. Existing conditions keep working.
+
+Stand and Hit
+Version 1.9.0-beta.6
+November 13, 2026
+
+Changed
+
+- Renamed Target health to Enemy health so it's clear that the condition checks a living enemy. Friendly targets do not qualify. Existing conditions keep working.
+
+Stand and Hit
+Version 1.9.0-beta.5
+November 13, 2026
+
+Changed
+
+- The first IF lets you choose Always or a condition type. To add another condition, choose AND, OR, or NOT, then its type.
+- Other casting settings stay visible, including Cast Count and enabled modifier controls.
+- Combo points, resources, enemy and player health, aura stacks, target casting, totems, hawks, and custom macro conditions can use OR and NOT as well as AND.
+- AND adds a requirement. OR can qualify the rule instead of its IF condition. NOT blocks the rule when its condition matches. The spell's cooldown and other requirements still apply.
+- Existing rotations keep their settings and behavior. Copying, sharing, and the textual explanation include the new conditions.
+
+Reload after updating, then Prepare outside combat.
+
+Stand and Hit
+Version 1.9.0-beta.4
+November 13, 2026
+
+Added
+
+- Aura stacks under Casting options. Choose a player buff or target debuff, enter its name or ID, and compare its stacks with a number from 0 to 99.
+- Stack conditions can be added to any spell. For example, cast Sunder Armor while its stacks are below 5. Multiple stack conditions must all match, including when an OR condition allows the spell.
+- Stack conditions carry over when copying rules and sharing rotations, and appear in the textual explanation. A confirmed missing aura counts as zero. If the count can't be checked, the button skips that rule.
+
+Sunder Armor's 1- and 2-stack readings were confirmed in combat. Higher counts, other auras such as Lacerate, and the complete rotation still need in-game testing.
+
+Reload after updating. Add Aura stacks to a rule, then click Prepare outside combat.
+
+Stand and Hit
+Version 1.9.0-beta.3
+November 13, 2026
+
+Fixed
+
+- Health conditions failing Prepare or automatic restoration with a "Health layout changed" error. Preparation now refreshes the affected layout measurements across all Hit Buttons without requiring a reload.
+
+Reload after updating, then click Prepare on any rotation still showing the old error.
+
+Stand and Hit
+Version 1.9.0-beta.2
+November 13, 2026
+
+Added
+
+- Player health under Casting options. Choose Below (<) or At least (>=) and a percentage from 0 to 100. This checks your own health, including when you have no target selected.
+- Player health can be combined with Target health and other conditions on the same rule. It carries over when copying or sharing rotations and appears in the textual explanation.
+
+Pending in-game testing: Player health conditions during combat.
+
+Reload after updating, then add the condition and click Prepare.
+
+Stand and Hit
+Version 1.9.0-beta.1
+November 13, 2026
+
+Added
+
+- Target health under Casting options. Choose Below (<) or At least (>=) and a percentage from 0 to 100. This checks your current living enemy target and works alongside the rule's other conditions.
+- Multiple Target health conditions can set a lower and upper limit. They carry over when copying rules or importing and exporting rotations, and appear in the rotation textual explanation.
+
+This build also includes the druid form and Cast Count fix from 1.8.1-beta.1 below.
+
+Pending in-game testing: Target health conditions selecting spells during combat and after changing targets.
+
+Reload after updating, then add the condition and click Prepare.
+
+Stand and Hit
+Version 1.8.1-beta.1
+November 12, 2026
+
+Fixed
+
+- Changing druid forms no longer requires Prepare just because a Cast Count spell's action-bar page changes. The counted rule waits while its spell button is unavailable and resumes when the original page returns, including during combat. Other rules keep working.
+- Completed counts are preserved across bar changes. Moving or replacing the actual spell still requires Prepare.
+
+Pending in-game testing: Starfire with Cast Count while shifting out of and back into caster form.
+
+Reload after updating, then Prepare with the caster bar visible.
+
+Stand and Hit
+Version 1.8.0
+November 12, 2026
+
+Added
+
+- In combat only under Casting options > Other casting settings. Check it to skip a rule outside combat. Its other conditions still apply during combat. Checking it unchecks Out of combat only; leave both off to use the rule in either state.
+- The setting carries over when copying rules and importing or exporting rotations, and appears in the rotation textual explanation.
+
+Fixed
+
+- Regular pets interfering with Hawk conditions.
+- Removed hawks blocking a replacement because their old timer had not cleared.
+- Hawk counts becoming unreadable in combat, which could prevent a second hawk or a replacement from being summoned.
+
+Still investigating
+
+- A reported delay of roughly 300 ms before the Hit Button replaces a hawk after it dies. This release does not include a fix for that delay.
+
+Reload after updating, then click Prepare on your rotations.
+
+Stand and Hit
+Version 1.7.0
+November 12, 2026
+
+Added
+
+- Hawk conditions for Hunters. Choose how many active hawks a rule needs, from 0 to 2. This works with any spell, including Summon Hawk and Arcane Shot.
+- Modifiers in Advanced. Enable it to add Skip if and Prioritize if to individual rules, using Ctrl, Alt, or Shift. Prioritized rules still need to meet their conditions and cooldown checks.
+- AND, OR, and NOT conditions can check another spell's cooldown. For example, Eviscerate can require Kidney Shot to be on cooldown. Keep the spell being checked in Essential or Utility Cooldowns.
+- The new conditions carry over when copying rules or sharing rotations and appear in the rotation textual explanation.
+
+Fixed
+
+- Gouge being rejected by Prepare when used as a Target debuff condition.
+- Ghostly Strike by name now selects the Ambush/Garrote proc. You no longer need to know its spell ID. The separate dodge buff is still available by entering 14278.
+- Preparation for Judgement of the Crusader, Light, Wisdom, and Justice when they are selected in the buff tracker but the addon cannot find their active tracker entry. Use Target debuff for these conditions.
+- Player buff conditions for Seal of the Crusader and Seal of Righteousness becoming unreadable in combat. This could skip Righteousness and go straight to a lower rule even while Judgement of the Crusader was on the target. Different seal ranks are included.
+- Modifier clicks now work alongside the button controls. For rotations using Ctrl rules, Ctrl+left-click casts and Ctrl+right-click toggles the tooltip. Shift-click works for Shift rules; Shift-drag still moves the button outside combat.
+
+Still needs in-game testing
+
+- Hawk counts as hawks arrive, expire, or disappear early.
+- Modifier rules with the Hit Button, action-bar macro, and direct cast key.
+- Other-spell cooldown conditions with AND, OR, and NOT, including during combat.
+- Gouge and Ghostly Strike as their effects appear and end.
+- Judgement debuffs and the Crusader-to-Righteousness rotation, including after changing targets.
+
+Reload after updating, then click Prepare on your rotations.
+
+Stand and Hit
+Version 1.6.0
+November 12, 2026
+
+- Totem conditions (previously Totem destroyed) and Totem cooldown now cover
+  Fire, Earth, Water, and Air. Pick the element to check each totem slot
+  separately.
+- Fire has an Any Fire totem active option, alongside the existing Searing and
+  Magma choices.
+- Added player-buff checks for Windfury, Flametongue, Windwall, resistance
+  totems, Mana Tide, and Grounding. Use Player buff > Buff is missing to
+  replace the totem when you lose its buff, even if the old totem is still
+  standing. Remove the slot-empty condition from that rule.
+- Added Out of combat only under Casting options > Other casting settings.
+  Check it on a rule to skip that spell during combat. The setting carries
+  over when copying rules or sharing rotations.
+- Prepare and the rank selector now recognize form-specific spells such as
+  Feral Charge (Cat).
+- Skip if out of range now works outside combat too.
+- Added Advance on toggle under Other casting settings for next-attack spells
+  such as Raptor Strike, Heroic Strike, and Maul. Once the attack is queued,
+  later presses move to the next matching rule. It becomes available again
+  after firing or being cancelled. This option starts unchecked for each rule
+  and is included when copying rules or sharing rotations.
+
+Version 1.5.3
+November 10, 2026
+
+- Consecration now works. Use Off cooldown and Self, with Consecration in Essential or Utility Cooldowns.
+- Auto Attack now functions like /startattack: it starts melee swings and attempts the next matching ability on the same press without toggling swings off.
+
+Version 1.5.2
+November 10, 2026
+
+- Fixed higher-rank paladin blessings and auras being rejected by Prepare
+  with the multiple-buffs error. This also covers trackers using a Greater
+  Blessing as their base spell. The reported Blessing of Might issue is
+  confirmed fixed in game. Reload, then Prepare your existing rotation.
+
+Version 1.5.1
+November 10, 2026
+
+Added
+
+- Added Copy Rule and Paste Rule below Spell priority. Copy a spell and all
+  its settings, switch Hit Button tabs, then paste it below the selected rule.
+  Adjust its priority and click Prepare to apply it.
+
+Fixed
+
+- Paladin seals, auras, and blessings now work with their grouped tracker
+  entries. Choose Tracked aura and enter the individual spell name or ID.
+  These conditions check your own buffs on yourself. Normal and Greater
+  Blessings use separate names. Add an OR condition to accept either.
+  Confirmed working in game.
+
+- Fixed a blocked-action error when copying the rotation explanation or
+  exporting a rotation. Click Copy to clipboard, then press Ctrl+C to copy
+  the selected text.
+
+Version 1.5.0
+November 10, 2026
+
+Added
+
+- Auto Attack is in the + Action menu. Put it above your melee abilities to start swinging on the first press. Once you're swinging, the next press goes to your next matching rule.
+- Skip if out of range is a per-spell checkbox under Other casting settings. If the target is out of range, the same press tries the next matching rule. Step back into range and the spell gets its usual priority again.
+- Shaman fire totems have two new conditions under Casting options. On Searing Totem, use Always with Totem destroyed to drop it when your fire slot is empty, even if your last totem was destroyed or dismissed early. On Fire Nova, use Off cooldown with Totem cooldown set to Searing or Magma active. Set both spells to Self.
+
+Fixed
+
+- Hunter aspects now work with the shared Aspects tracker. Enter the individual aspect, such as Aspect of the Monkey, in a Tracked aura rule. Prepare now accepts the rule, and it can tell which aspect you have active.
+
+Version 1.4.0
+November 9, 2026
+
+- Added Require being behind target beside Manual cooldown. If Backstab
+  fails because you're in front of the target, your next press tries the
+  next matching rule. Backstab regains its priority on the following press.
+  Range and energy errors keep the usual priority. Confirmed in combat.
+- Riposte now checks whether it's usable after a parry. If your rule
+  already uses Aura is present with Riposte, click Prepare to apply the
+  change. Live testing on a rogue is still pending.
+- Removed the stray "Stand and Hit totem signal 1" text that could appear
+  in the lower-left corner of the screen.
+
+Version 1.3.0
+November 8, 2026
+
+Class fixes
+
+- Fixed Shaman totem rules getting skipped in combat. Strength of Earth
+  Totem can drop again when you lose the buff, including after the totem
+  is destroyed. Set Cast on to Self, choose Player buff > Buff is missing,
+  and enter Strength of Earth. Existing Tracked aura rules for this buff
+  also pick up the fix.
+- Ground totems now drop at your feet with an enemy selected. For a totem
+  with a cooldown, like Stoneclaw, keep it in Essential or Utility Cooldowns
+  and choose Off cooldown. The rule checks the totem's own cooldown during
+  the global cooldown.
+- Druid Forms can share a tracker icon. Track Druid Forms, then enter an
+  individual learned form in a Tracked aura rule. For example, Claw can
+  require Cat Form and Maul can require Dire Bear Form.
+- Warlock curses (pending in-game testing). Track Curses, then enter the
+  individual curse under Target debuff. If you replace your Curse of Weakness
+  with Curse of the Elements, a Weakness rule should see it as missing.
+- Frostbite (pending in-game testing). Fixed the Prepare error for a tracked
+  Frostbite. For Ice Lance, keep Frostbite in Tracked Bars or Tracked Buffs,
+  choose Target debuff > Debuff is present, and enter Frostbite. You can
+  prepare the rule before the first freeze.
+
+Rotation editor
+
+- Added Target of focus to Cast on. It casts on whoever your focus is targeting.
+- The Advanced tab has two optional settings. Custom Target accepts macro
+  targets such as @focus. Custom Conditions lets you add a check such as
+  [harm,nodead] to a rule. Click Examples for the in-game reference.
+- Added Target is casting under Casting options. Add it to any spell you
+  want to use while your current target is casting or channeling.
+- Uncheck Enable Rule to skip a spell. Check it again to restore its settings
+  at the same priority. Prepare messages and cast-count errors use the rule
+  numbers you see in the editor.
+- Import and export include the new options and disabled rules. The rotation
+  explanation shows them too. The setup window now shows the installed version.
+
+Version 1.2.1
+November 7, 2026
+
+Shaman totems now work in rotations. You can drop a totem when its spell
+comes off cooldown or when its buff wears off.
+
+- For Stoneclaw Totem, enable the tracker and add the spell to Essential
+  Cooldowns or Utility Cooldowns. Set that group to Always visible. In your
+  rotation, add Stoneclaw Totem, choose Off cooldown, and leave Aura blank.
+  If Stoneclaw dies early, the rule still waits for its cooldown.
+- For Strength of Earth Totem, the Player buff check needs no tracker entry.
+  Add Strength of Earth Totem to your rotation and set Cast on to Self.
+  Choose Player buff and Buff is missing. Enter Strength of Earth as the
+  buff and leave Skip while on cooldown off. If you walk out of range and
+  lose the buff, the rule can drop the totem again. Another Shaman's buff
+  counts too.
+
+Put the totem above your filler, close tracker settings, and click Prepare
+outside combat.
+
+Version 1.2.0
+November 7, 2026
+
+- Wands should work for everyone again. You can keep pressing your Hit Button
+  while your wand fires. Your existing Shoot rules pick up the fix on Prepare.
+- Hunter Auto Shot and Pet Attack now work in rotations. Add them under
+  + Action. Put Pet Attack above Auto Shot to send your pet in on one press
+  and start shooting on the next.
+- Added Manual cooldown for spells that also have a tracked aura. Enter the
+  cooldown in seconds. It starts when the cast succeeds.
+- Taking a flight path or temporarily greying out your action bars no longer
+  prompts you to prepare a timed spell again. Moving or replacing it still does.
+
+Version 1.1.0
+November 6, 2026
+
+- Combo points work again! Blizzard hid some of the information the addon was
+  relying on, but I found a workaround.
+- Added resource tracking. You can now set conditions based on your mana,
+  rage, or energy percentage.
+- Added Party 1-4 target options, so you can choose a party member for a spell.
+- Added optional Ping Delay per rule to help prevent double-casting buffs and
+  debuffs. It waits after the cast finishes and defaults to 100 ms, which you
+  can adjust.
+
+Version 1.0.0
+October 19, 2026
+
+Here's what's changed since the first release changelog.
+
+Stand and Hit (S&H) has its own StandAndHit folder and saved settings. Use
+/snh or /standandhit to open it. The rotation tabs are Hit Button, Hit Button 2,
+Hit Button 3, and Hit Button 4. If you're moving from an earlier addon, export
+your rotations before removing it, then import them tab by tab and click
+Prepare. You'll also need to recreate your action-bar macros, assign your
+direct keys, and choose your local preferences after installing.
+
+Extra rotations
+
+I added extra Hit Buttons after realizing I wanted separate rotations for
+grinding, dungeon trash, dungeon bosses, and other situations. Hit Button,
+Hit Button 2, Hit Button 3, and Hit Button 4 each have their own setup tab,
+rules, macro, cast key, and saved button position. The three extra rotations
+can be enabled or disabled separately.
+The extra rotations start disabled and empty, so you can build each one from
+scratch or import an older export.
+
+Conditions and casting
+
+- Shoot now recognizes when you're using a wand. You can keep pressing without
+  toggling it off, and it'll try again if the wand stops firing. A matching
+  rule higher in the list still takes priority.
+- Added AND, OR, and NOT conditions. You can require several buffs or debuffs,
+  give a spell another way to trigger, or stop it from being chosen when a
+  condition matches. An OR match still has to pass your AND and NOT checks.
+- You can check whether your tracked debuffs are present or missing on your
+  current living hostile target, as well as checking tracked auras.
+- Unreadable live debuff details no longer cause a false CHECK SETUP warning
+  after preparation. The addon still checks that it's using the right tracker
+  and settings. Other setup errors now include a short explanation.
+- Added + Casting options > Combo points for any spell, including builders.
+  Choose >=, <=, =, or != and a number from 0 to 5. For example, a builder can
+  use IF Always with combo points != 5, while a finisher uses >= 5.
+  This adds an AND requirement, so an OR match can't skip it.
+  It checks your current target regardless of Cast on and needs no Cooldown
+  Manager tracker or individual spell slot on an action bar.
+- Choose Highest learned or a specific learned rank with the spell rank selector.
+- Off cooldown works for spells that have a cooldown but don't apply an aura.
+- Set a completed-cast limit from 1 to 99 for supported cast-time spells.
+  Failed or interrupted casts don't use up a count.
+- Conditions have numbers, and Attach count to lets you choose which eligible
+  tracked-aura IF, OR, or AND condition starts a cast batch. An OR proc without
+  a count can still allow the spell without starting a batch of its own. If a
+  batch is already running, matching completed casts during that proc count
+  toward it too. Combo points is separate from Cast Count; you can't attach a
+  cast count to a combo-point condition.
+- Stop current cast lets a present-proc condition interrupt another cast.
+  Stop if buffs change interrupts when the last requested rule's aura
+  conditions no longer match. Both need a fresh press of your direct cast key
+  or assigned controller button, and keep channels protected.
+- Set cast key and Clear key give each rotation its own direct binding. The
+  addon checks for duplicate keys between active rotations.
+
+Interface
+
+- The Controller window lets you assign a gamepad button to each Hit Button.
+  These use the direct casting controls, including interrupt options. You can
+  keep a keyboard cast key assigned to the same rotation too.
+- You can enable rumble when combat starts or Rumble on crit for your outgoing
+  critical damage. There's a rumble test in the window. Crit alerts depend on
+  the game exposing readable events; the window tells you if they're unavailable.
+- Shortened Hit Button tooltips to the last selected spell and directions.
+  Ctrl+left-click hides or shows the tooltip and remembers your choice for
+  each button. It works in combat and doesn't cast a spell.
+- Enable tracker beside Prepare switches Blizzard's Cooldown Manager on or
+  off. It's red when the tracker is disabled, even if you changed that in the
+  game's settings.
+- The editor has a spell priority list on the left. Select a spell to see its
+  settings, so you don't have every rule's controls taking up the screen at once.
+- New rules start with IF. The + Casting options menu adds AND, OR, NOT,
+  Combo points, Cast Count, or other casting settings as needed. Adding Combo
+  points to a blank rule selects Always automatically. Its comparison, number,
+  and Remove button are right there in the editor.
+- Added conditions appear in the editor with their own numbers and controls.
+  Long rules scroll, and adding a condition brings it into view.
+- Rotation textual explanation describes the selected tab's draft from top
+  to bottom. Each condition gets a bullet, with IF, AND, OR, and NOT emphasized
+  to make the logic easier to follow.
+- Removed the detailed cast-batch and stop-casting notes from that explanation.
+  Cast limits keep the short "AND fewer than ... successful
+  casts ... have counted for this batch" line under the attached condition.
+- Copy to clipboard lets you copy the explanation. If the client can't copy
+  directly, it opens selected text so you can press Ctrl+C.
+- Import and Export let you share a rotation or keep a copy of your draft.
+  They include rule order, conditions, ranks, cast counts, casting options,
+  and Protect channels. Importing replaces the selected tab's draft. You'll
+  still need to set up your trackers and click Prepare on that character.
+- Exports include combo-point comparisons and numbers, and the textual
+  explanation shows them too. New combo exports use SNH2; rotations without
+  combo conditions use SNH1. You can still import older rotation exports.
+- When preparation is needed, a notice near the top of the screen tells you
+  why and offers Prepare or Dismiss. It handles the affected rotations
+  together. Any unfinished draft edits stay separate from the saved rotations
+  it reapplies.
+- Added an optional Hide casting errors checkbox for each Hit Button. It
+  briefly hides common red casting errors, their character voice lines, and
+  error sounds after a spell attempt. You don't need to Prepare for this
+  setting to work. Other messages and audio stay as they were, and the
+  preference stays local when you share a rotation.
+- Simplified the minimap artwork and lowered its resolution so it fits better
+  beside the game's other minimap buttons.
+
+Fixes
+
+- Removed unnecessary crit-rumble setup calls when entering combat, including
+  when the option is off. Event setup now waits until you're out of combat.
+- Canceling keyboard assignment in combat now releases the keyboard without
+  trying to change protected input settings.
+- Fixed a false CHECK SETUP warning when the game hides a target tracker's
+  live linked aura ID during combat. The addon still checks readable ID changes
+  and the required tracker settings.
+- Reduced memory growth while idle by reusing tracker-check data and avoiding
+  repeated full spell-information tables. It still checks every half-second
+  for changed or unavailable trackers.
+- Restore at login now waits for talent and spell data to finish loading and
+  settle before restoring your prepared rotations. This clears false change
+  warnings from loading. Actual talent changes, learned spells, and required
+  setup changes still ask you to Prepare.
+- Generated macros and direct cast keys for rotations using Combo points
+  clear the spell queue on every press before choosing again. Queue clearing
+  doesn't stop a cast that's already underway.
+- Temporary tracker changes while changing zones can now recover outside
+  combat without making you click Prepare again. Talent changes, learned
+  spells, and required setup changes still prompt for preparation.
+- Fixed cooldown-only rules being skipped during the global cooldown. This
+  could leave you spamming a filler spell even though a higher-priority spell
+  like Arcane Wrath was ready. The cooldown check now tells the global cooldown
+  apart from the spell's own cooldown across all four rotations.
+- Fixed valid procs being rejected because the tracked talent or spell has a
+  different name from the buff it gives you.
+- Fixed interrupt options being unavailable for a present-buff OR condition.
+  Interrupts now use the direct casting controls.
+- Fixed the textual explanation opening behind the main settings window.
+- Removed the need to open a separate editor to see added conditions.
+
+Current limits and planned work
+
+Aura and cooldown conditions still need supported entries in Blizzard's
+trackers. Combo-point conditions don't need those trackers or individual
+spell slots.
+
+Completed-cast limits currently work with normal cast-time spells. The exact
+spell rank has to stay in a fixed slot on a visible Blizzard action bar.
+You can't attach counts to target debuffs, NOT exclusions, Always, cooldown,
+or combo-point conditions.
+
+Rogue tests confirmed the combo-point signal in combat. Selecting and
+casting spells with it in the main addon still needs in-game confirmation.
+
+Holding a key keeps the spell it first selected. I'm still looking into
+changing spells while the key stays held. For now, release and press again.
+I also plan to add item-based cooldowns once I have a suitable item to test.
+Most in-game testing so far has been on a mage, including Missile Barrage
+and Eureka!, so I'd like to test more classes and spells too.

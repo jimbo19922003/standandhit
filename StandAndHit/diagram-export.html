@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src blob: data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Stand and Hit — diagram export</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,sans-serif;background:#0b1117;color:#e1e9ef}
+*{box-sizing:border-box}body{margin:0 auto;max-width:1440px;padding:32px 24px}header{margin-bottom:26px}h1{font-size:27px;font-weight:600;margin:0 0 10px;color:#72d4e4}p{line-height:1.55;margin:10px 0;color:#bac8d3}main{display:grid;grid-template-columns:360px minmax(0,1fr);gap:24px}section{border:1px solid #30414e;background:#101b24;border-radius:8px;padding:20px}h2{font-size:18px;margin:0 0 12px;color:#eff6fa}label{display:block;margin:16px 0 8px}textarea{width:100%;min-height:260px;resize:vertical;background:#080e13;border:1px solid #50616e;border-radius:4px;padding:12px;color:#d7e4ef;font:12px/1.5 monospace}button{border:1px solid #637a88;border-radius:4px;padding:10px 14px;background:#233743;color:#eef8ff;font:inherit;cursor:pointer}button.primary{background:#174954;border-color:#54adbb}button:hover:not(:disabled){filter:brightness(1.2)}button:focus-visible,textarea:focus-visible{outline:2px solid #a6e7f1;outline-offset:3px}button:disabled{opacity:.45;cursor:default}.buttons{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}.small{font-size:13px;color:#9eafbc}.error{color:#ffb5a5!important}#status{min-height:3em;margin-top:14px}#preview{min-height:420px;max-height:74vh;overflow:auto;background:#080e13;border:1px solid #253743;border-radius:4px;padding:12px}#preview img{display:block;width:100%;height:auto}#placeholder{padding:50px 16px;text-align:center}#details{font-size:13px;color:#a9beca;min-height:2em;margin-bottom:12px}code{color:#e6d6a9}footer{font-size:13px;color:#879daa;margin-top:24px}@media(max-width:850px){main{grid-template-columns:1fr}textarea{min-height:150px}#preview{max-height:65vh}}
+</style>
+</head>
+<body>
+<header><h1>Stand and Hit: export your rotation diagram</h1><p>Copy the diagram from WoW, paste it here, and save the whole rotation as one image.</p></header>
+<main>
+<section aria-labelledby="paste-heading">
+<h2 id="paste-heading">1. Copy and paste</h2>
+<p>In Stand and Hit, open <strong>Rotation explanation</strong>, choose <strong>Function Block Diagram</strong>, then click <strong>Export image</strong>. Press Ctrl+C.</p>
+<label for="diagram-input">Paste the copied diagram here</label>
+<textarea id="diagram-input" spellcheck="false" placeholder="Paste with Ctrl+V. The copied text starts with &lt;svg or &lt;?xml."></textarea>
+<div class="buttons"><button id="preview-button" class="primary">Preview diagram</button><button id="clear-button">Clear</button></div>
+<p class="small">This page works offline. Your rotation stays in this browser.</p>
+<p id="status" role="status" aria-live="polite">Paste the export to begin.</p>
+</section>
+<section aria-labelledby="save-heading">
+<h2 id="save-heading">2. Save the image</h2>
+<div class="buttons"><button id="png-button" class="primary" disabled>Download PNG</button><button id="svg-button" disabled>Download SVG</button></div>
+<p id="details">PNG is ready to post in Discord. SVG keeps the original size and can be opened in a browser.</p>
+<div id="preview"><p id="placeholder">Your entire diagram will appear here.<br>Scroll through the preview to check it before saving.</p><img id="diagram-preview" alt="Full rotation function block diagram" hidden></div>
+</section>
+</main>
+<footer>WoW's screenshot button saves what is on screen. This exporter includes every block, even the parts you had to scroll to see.</footer>
+<script>
+'use strict';
+const SVG_NS='http://www.w3.org/2000/svg';
+const XML_NS='http://www.w3.org/XML/1998/namespace';
+const allowedTags=new Set(['svg','title','desc','rect','line','polygon','polyline','text','tspan','g']);
+const allowedAttrs=new Set(['xmlns','width','height','viewBox','x','y','x1','y1','x2','y2','rx','ry','points','fill','stroke','stroke-width','font-family','font-size','font-weight','xml:space','transform','text-anchor','dx','dy','fill-opacity','stroke-opacity','data-snh-diagram']);
+const input=document.getElementById('diagram-input'),preview=document.getElementById('diagram-preview');
+const placeholder=document.getElementById('placeholder'),status=document.getElementById('status'),details=document.getElementById('details');
+const pngButton=document.getElementById('png-button'),svgButton=document.getElementById('svg-button');
+let state=null,revision=0,imageURL=null,busy=false;
+function say(message,error=false){status.textContent=message;status.classList.toggle('error',error)}
+function buttons(){pngButton.disabled=!state||busy;svgButton.disabled=!state||busy}
+function discard(){revision++;state=null;busy=false;buttons();preview.hidden=true;placeholder.hidden=false;preview.removeAttribute('src');if(imageURL){URL.revokeObjectURL(imageURL);imageURL=null}}
+function cleanSVG(text){
+  if(!text.trim())throw Error('Paste the diagram from Export image first.');
+  if(text.length>16000000)throw Error('This export is too large to open here. Try exporting one Hit Button at a time.');
+  if(/<!DOCTYPE|<!ENTITY/i.test(text))throw Error('Use the text from Stand and Hit’s Export image button.');
+  const parsed=new DOMParser().parseFromString(text,'image/svg+xml'),root=parsed.documentElement;
+  if(parsed.getElementsByTagName('parsererror').length||root.localName!=='svg'||root.namespaceURI!==SVG_NS)throw Error('That is not a complete diagram export. Copy all of the text from Export image and paste it again.');
+  const width=Number(root.getAttribute('width')),height=Number(root.getAttribute('height'));
+  if(!Number.isFinite(width)||!Number.isFinite(height)||width<1||height<1||width>1000000||height>1000000)throw Error('The diagram has an invalid image size.');
+  const nodes=[root,...root.querySelectorAll('*')];
+  if(nodes.length>40000)throw Error('This export has too many blocks to open here.');
+  for(const element of nodes){
+    if(element.namespaceURI!==SVG_NS||!allowedTags.has(element.localName))throw Error('This file contains content outside the diagram. Copy a fresh export from Stand and Hit.');
+    for(const attribute of [...element.attributes]){
+      const name=attribute.name,value=attribute.value;
+      if(!allowedAttrs.has(name))throw Error('This file contains an unsupported diagram setting: '+name+'. Copy a fresh export.');
+      if(name==='xmlns'&&value!==SVG_NS)throw Error('Invalid diagram format.');
+      if(name==='transform'&&!/^translate\(\s*-?[\d.]+(?:[ ,]+-?[\d.]+)?\s*\)$/.test(value))throw Error('Invalid diagram position.');
+      if((name==='fill'||name==='stroke')&&!/^(?:none|#[\da-f]{3,8}|[a-z]+)$/i.test(value))throw Error('Invalid diagram color.');
+      if(name==='font-family'&&!/^[a-z ,'-]+$/i.test(value))throw Error('Invalid diagram font.');
+    }
+  }
+  // SVG is loaded only as an image. No pasted markup is added to the page.
+  const svg=new XMLSerializer().serializeToString(root);
+  const title=root.querySelector('title')?.textContent||'Stand and Hit rotation';
+  const filename=title.replace(/[<>:"/\\|?*\u0000-\u001f]/g,'').trim().slice(0,100)||'Stand and Hit rotation';
+  return {svg,width,height,filename};
+}
+function imageFromURL(url){return new Promise((resolve,reject)=>{const image=new Image();image.onload=()=>resolve(image);image.onerror=()=>reject(Error('The browser could not draw this diagram. Copy a fresh export and try again.'));image.src=url})}
+async function loadDiagram(){
+  discard();const token=revision;busy=true;buttons();say('Opening the full diagram…');
+  try{
+    const next=cleanSVG(input.value),url=URL.createObjectURL(new Blob([next.svg],{type:'image/svg+xml;charset=utf-8'}));
+    imageURL=url;await imageFromURL(url);if(token!==revision)return;
+    state=next;preview.src=url;preview.hidden=false;placeholder.hidden=true;
+    details.textContent=next.width+' × '+next.height+' pixels. The preview is scaled to fit; the download includes the entire diagram.';
+    say('Ready. Download PNG to post it in Discord, or SVG to keep the original diagram.');
+  }catch(error){if(token===revision){discard();say(error.message||'The diagram could not be opened.',true)}}
+  finally{if(token===revision){busy=false;buttons()}}
+}
+function download(blob,name){const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=name;link.click();setTimeout(()=>URL.revokeObjectURL(url),30000)}
+async function savePNG(){
+  if(!state||busy)return;busy=true;buttons();const current=state,token=revision;
+  const scale=Math.min(1,16384/current.width,16384/current.height,Math.sqrt(32000000/(current.width*current.height)));
+  const width=Math.max(1,Math.floor(current.width*scale)),height=Math.max(1,Math.floor(current.height*scale));
+  let canvas;
+  try{
+    say('Creating one PNG of the entire rotation…');
+    const image=await imageFromURL(imageURL);if(token!==revision)return;
+    canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;
+    const context=canvas.getContext('2d');if(!context)throw Error('The browser could not create this PNG. Download SVG to keep the full diagram.');
+    context.fillStyle='#0b1117';context.fillRect(0,0,width,height);context.drawImage(image,0,0,width,height);
+    const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png'));
+    if(token!==revision)return;if(!blob)throw Error('This diagram is too large for this browser to save as PNG. Download SVG instead.');
+    download(blob,current.filename+'.png');
+    say(scale<.999?'PNG download started at '+width+' × '+height+' pixels. It was reduced to fit browser image limits. SVG keeps the full size.':'PNG download started. The image includes the entire rotation.');
+  }catch(error){if(token===revision)say(error.message||'Could not create the PNG. You can download SVG instead.',true)}
+  finally{if(canvas){canvas.width=1;canvas.height=1}if(token===revision){busy=false;buttons()}}
+}
+document.getElementById('preview-button').addEventListener('click',loadDiagram);
+document.getElementById('clear-button').addEventListener('click',()=>{discard();input.value='';details.textContent='PNG is ready to post in Discord. SVG keeps the original size and can be opened in a browser.';say('Paste the export to begin.');input.focus()});
+input.addEventListener('input',()=>{if(state||busy){discard();say('The pasted text changed. Click Preview diagram before downloading.')}});
+pngButton.addEventListener('click',savePNG);
+svgButton.addEventListener('click',()=>{if(state&&!busy){download(new Blob([state.svg],{type:'image/svg+xml;charset=utf-8'}),state.filename+'.svg');say('SVG download started. It contains the entire diagram at its original size.')}});
+</script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+## Interface: 16001
+## Title: Stand and Hit: WeakAuras
+## Notes: Optional, read-only Hit Button readiness functions for WeakAuras.
+## Author: Stand and Hit
+## Version: 0.1.1
+## RequiredDeps: StandAndHit
+## Group: StandAndHit
+API.lua

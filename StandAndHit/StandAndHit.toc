@@ -1,0 +1,60 @@
+## Interface: 16001
+## Title: Stand and Hit
+## Notes: Five profiles with four Hit Buttons each, aura and cooldown conditions, and action-bar macros.
+## Author: Stand and Hit
+## Version: 1.11.1
+## SavedVariablesPerCharacter: StandAndHitDB
+## OptionalDeps: Blizzard_CooldownViewer, Blizzard_AuraContainer
+MacroReference.lua
+Model.lua
+Profiles.lua
+Transfer.lua
+SpellRanks.lua
+AuraAliases.lua
+Explanation.lua
+Diagram.lua
+CastCounts.lua
+PreparationState.lua
+ComboPoints.lua
+Resources.lua
+Health.lua
+AuraStacks.lua
+AuraTime.lua
+PingDelay.lua
+Range.lua
+PositionSkip.lua
+ImmunitySkip.lua
+TotemSignal.lua
+FireTotems.lua
+HawkCount.lua
+TotemBuffSlot.lua
+TotemCooldown.lua
+Riposte.lua
+PlayerBuff.lua
+GroupedPlayerBuffs.lua
+WarriorStances.lua
+DruidForms.lua
+DruidFormSignal.lua
+Frostbite.lua
+Gouge.lua
+Judgements.lua
+TargetEffect.lua
+TargetCasting.lua
+WandShoot.lua
+PetAttack.lua
+ErrorFilter.lua
+Core.lua
+DirectInput.lua
+Controller.lua
+ControllerBindings.lua
+ControllerUI.lua
+Minimap.lua
+DiagramUI.lua
+DiagramExport.lua
+ExplanationUI.lua
+TransferUI.lua
+PreparationUI.lua
+WeakAurasIntegration.lua
+UI.lua
+ReadinessReaders.lua
+Readiness.lua
